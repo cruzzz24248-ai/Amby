@@ -346,3 +346,31 @@ h1,h2,h3{font-weight:500;letter-spacing:-.025em}
  .hero.hz h1{font-size:clamp(2.7rem,13vw,3.6rem)}
  .hero.hz .hz-sub{font-size:clamp(.95rem,4.2vw,1.05rem);line-height:1.6;max-width:34ch}
 }
+
+/* pantalla de entrada: camión con la casa */
+.no-intro #intro{display:none}
+html.intro-on{overflow:hidden}
+.intro-on .hero.hz *{animation-play-state:paused!important}
+#intro{--tw:clamp(290px,66vw,560px);position:fixed;inset:0;z-index:200;display:grid;align-content:center;background:#141414;color:#fff;overflow:hidden;animation:inout .75s cubic-bezier(.7,0,.2,1) 3.45s both}
+#intro.skip{animation:inout .45s cubic-bezier(.7,0,.2,1) both}
+.in-stage{width:100%}
+.in-logo{text-align:center;padding:0 1rem 1.6rem}
+.in-logo span{display:block;font:600 clamp(3.6rem,15vw,6.8rem)/1 var(--f);letter-spacing:-.04em;color:var(--o)}
+.in-logo span i{font-style:normal;color:#fff}
+.in-logo small{display:block;margin-top:.9rem;font-size:clamp(.6rem,2.6vw,.8rem);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.in-lane{position:relative;height:calc(var(--tw)*170/520)}
+.in-truck,.in-cover{position:absolute;left:0;animation:intruck 3s cubic-bezier(.55,.05,.3,1) .2s both}
+.in-truck{bottom:0;width:var(--tw);z-index:3}
+.in-truck svg{display:block;width:100%;height:auto;overflow:visible;animation:inbump .32s ease-in-out infinite alternate}
+.in-cover{top:-340px;bottom:0;width:260vw;margin-left:calc(var(--tw)*.027);background:#141414;z-index:1}
+.in-road{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:rgba(255,255,255,.2);z-index:2}
+.in-road::after{content:"";position:absolute;left:0;right:0;top:14px;height:3px;background:linear-gradient(90deg,rgba(255,255,255,.22) 26px,transparent 26px) 0 0/62px 3px repeat-x;animation:inroad .52s linear infinite}
+.in-wh{transform-box:fill-box;transform-origin:center;animation:inspin .6s linear infinite}
+.in-sm{opacity:0;transform-box:fill-box;transform-origin:center;animation:insmoke 1.05s ease-out infinite}.in-sm circle{fill:#fff}
+@keyframes intruck{from{transform:translateX(calc(var(--tw)*-1.06))}to{transform:translateX(100vw)}}
+@keyframes inout{to{transform:translateY(-100%)}}
+@keyframes inspin{to{transform:rotate(360deg)}}
+@keyframes inbump{to{transform:translateY(-1.5px)}}
+@keyframes inroad{to{background-position-x:-62px}}
+@keyframes insmoke{0%{opacity:.5;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(-34px,-30px) scale(2.1)}}
+@media(prefers-reduced-motion:reduce){#intro{display:none}}

@@ -232,3 +232,18 @@
   const up = document.querySelector('.up');
   if (up) up.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
 })();
+/* 5) Pantalla de entrada (camión con la casa): una vez por sesión; con ?intro se fuerza */
+(() => {
+  const intro = document.getElementById('intro'); if (!intro) return;
+  const root = document.documentElement;
+  if (root.classList.contains('no-intro')) { intro.remove(); return; }
+  let closed = false;
+  const done = () => {
+    if (closed) return; closed = true;
+    try { sessionStorage.setItem('amby-intro', '1'); } catch (e) {}
+    root.classList.remove('intro-on'); intro.remove();
+  };
+  intro.addEventListener('animationend', e => { if (e.target === intro && e.animationName === 'inout') done(); });
+  intro.addEventListener('click', () => intro.classList.add('skip'));
+  setTimeout(done, 5500);
+})();
