@@ -178,7 +178,7 @@ footer{padding-top:4rem}.f-head{padding-bottom:2.2rem;gap:1.1rem}.f-tel{font-siz
 @media(max-width:700px){.hero .acts{margin-top:2.2rem}}
 /* ===== versión clara: domina el blanco ===== */
 .brand span i{font-style:normal;color:#1d1d1d}footer .brand span i{color:#fff}
-.top,body.home .top:not(.sc){background:rgba(243,239,232,.86);color:var(--ink);backdrop-filter:blur(14px)}.top.sc{box-shadow:0 1px 0 rgba(0,0,0,.08)}
+.top,body.home .top:not(.sc){background:#F3EFE8;color:var(--ink);backdrop-filter:blur(14px)}.top.sc{box-shadow:0 1px 0 rgba(0,0,0,.08)}
 .burger i{background:var(--ink)}
 .alt{background:#fff;color:var(--ink)}.dark{color:var(--ink)}
 .cta{background:radial-gradient(70% 90% at 50% 0%,rgba(242,160,30,.28),transparent 72%),var(--iv)}
@@ -336,4 +336,13 @@ h1,h2,h3{font-weight:500;letter-spacing:-.025em}
  .nav2 #next{flex:none;padding:.75rem 1.1rem;font-size:.9rem}
  body:has(#fm) .nav2{right:max(1rem,env(safe-area-inset-right))}
  .nav2.off,body:has(#menu.open) .nav2{opacity:0;pointer-events:none;transform:translateY(14px)}
+}
+
+/* hero: textos con cortes de línea más prolijos */
+.hero.hz .hz-eye{font-size:clamp(.6rem,3vw,.8rem);letter-spacing:.12em;line-height:1.5;margin:0 0 1.1rem;max-width:none;text-wrap:balance}
+.hero.hz h1 b{white-space:nowrap}
+.hero.hz .hz-sub{text-wrap:balance}
+@media(max-width:560px){
+ .hero.hz h1{font-size:clamp(2.7rem,13vw,3.6rem)}
+ .hero.hz .hz-sub{font-size:clamp(.95rem,4.2vw,1.05rem);line-height:1.6;max-width:34ch}
 }
