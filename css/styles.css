@@ -177,9 +177,9 @@ footer{padding-top:4rem}.f-head{padding-bottom:2.2rem;gap:1.1rem}.f-tel{font-siz
 .f-grp a{white-space:nowrap;flex:none}
 @media(max-width:700px){.hero .acts{margin-top:2.2rem}}
 /* ===== versión clara: domina el blanco ===== */
-.brand span i{font-style:normal;color:#1d1d1d}footer .brand span i{color:#fff}
-.top,body.home .top:not(.sc){background:#F3EFE8;color:var(--ink);backdrop-filter:blur(14px)}.top.sc{box-shadow:0 1px 0 rgba(0,0,0,.08)}
-.burger i{background:var(--ink)}
+.brand span i{font-style:normal;color:#fff}
+.top,body.home .top:not(.sc){background:var(--ink);color:#fff;backdrop-filter:none}.top.sc{box-shadow:0 1px 0 rgba(255,255,255,.08)}
+.burger i{background:#fff}
 .alt{background:#fff;color:var(--ink)}.dark{color:var(--ink)}
 .cta{background:radial-gradient(70% 90% at 50% 0%,rgba(242,160,30,.28),transparent 72%),var(--iv)}
 .facts{background:#fff;color:var(--ink)}.facts strong{color:var(--od)}
@@ -196,7 +196,7 @@ footer{padding-top:4rem}.f-head{padding-bottom:2.2rem;gap:1.1rem}.f-tel{font-siz
 .hero-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,14,14,.5),rgba(14,14,14,.3) 45%,rgba(14,14,14,.75))}
 @media(max-width:700px){
  .hero{padding-top:7rem}.hero p{display:block;font-size:.98rem;margin:1.1rem auto 1.6rem}.hero .acts{margin-top:0}
- nav{background:var(--iv)}
+ nav{background:var(--ink);border-top:1px solid rgba(255,255,255,.1)}
 }
 /* marca de agua */
 .f-mark{font:600 clamp(5rem,27vw,19rem)/1.08 var(--f);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:0;background:linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,.04) 90%);-webkit-background-clip:text;background-clip:text;user-select:none;pointer-events:none;height:auto;margin:0;padding-bottom:.4rem;overflow:visible}
