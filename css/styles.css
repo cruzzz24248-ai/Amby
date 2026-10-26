@@ -374,3 +374,56 @@ html.intro-on{overflow:hidden}
 @keyframes inroad{to{background-position-x:-62px}}
 @keyframes insmoke{0%{opacity:.5;transform:translate(0,0) scale(.6)}100%{opacity:0;transform:translate(-34px,-30px) scale(2.1)}}
 @media(prefers-reduced-motion:reduce){#intro{display:none}}
+
+/* ===== Catálogo 2026: líneas, comparativa, condiciones, formas de pago ===== */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.lead{max-width:56ch;margin:-1.6rem 0 2.6rem;opacity:.8}
+.note{font-size:.85rem;opacity:.7;margin-top:1rem;max-width:62ch}
+.mas{margin-top:2.4rem;opacity:.85;max-width:56ch}
+.lns{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:1.2rem}
+.ln{border-radius:var(--r);padding:clamp(1.4rem,3vw,2rem);display:grid;gap:.9rem;align-content:start;min-height:15rem;box-shadow:inset 0 0 0 1px rgba(242,160,30,.55)}
+.ln h3{font-weight:500;font-size:1.5rem;letter-spacing:-.02em}
+.ln .ln-p{display:flex;align-items:baseline;gap:.45rem;flex-wrap:wrap;margin:0}
+.ln .ln-p small{opacity:.65;font-size:.85rem}.ln .ln-p strong{font-weight:500;font-size:clamp(1.9rem,4vw,2.6rem);letter-spacing:-.03em;line-height:1.1}.ln .ln-p span{opacity:.65}
+.ln .ln-d{font-size:.95rem;opacity:.8;margin:0}
+.ln0{background:#e4e2dd;color:var(--ink)}.ln1{background:#9b9b95;color:var(--ink)}.ln2{background:#262626;color:#fff}.ln2 h3{color:var(--o)}
+.tbl-d{max-width:none;margin-top:2rem;padding-block:1rem}.tbl-d summary{font-size:1.05rem}
+.tbl{overflow-x:auto;margin-top:1.4rem;border-radius:14px;box-shadow:inset 0 0 0 1px var(--ln);-webkit-overflow-scrolling:touch}
+.tbl table{border-collapse:collapse;width:100%;min-width:760px;font-size:.88rem;line-height:1.45}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:.85rem 1rem;border-bottom:1px solid var(--ln)}
+.tbl thead th{position:sticky;top:0;font-weight:600;background:var(--iv);border-bottom:2px solid var(--o)}
+.tbl tbody th{font-weight:600;width:15%;color:var(--od)}.tbl tbody tr:last-child>*{border-bottom:0}
+.tbl td{width:28%}
+.inc,.pay{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:2.4rem}.pay{margin-top:3.6rem;padding-top:2.6rem;border-top:1px solid var(--ln);grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.inc h3,.pay h3{font-size:1.25rem;font-weight:500;letter-spacing:-.02em;margin-bottom:1rem}
+.tk{list-style:none;padding:0;display:grid;gap:.1rem}
+.tk li{padding:.7rem 0 .7rem 1.6rem;border-bottom:1px solid var(--ln);position:relative;font-size:.98rem}
+.tk li::before{content:"";position:absolute;left:0;top:1.28rem;width:.7rem;height:2px;background:var(--od)}
+.tk.no li::before{background:#8a8a8a}.tk.plus li::before{background:var(--o);height:2px}
+.pay-l li{padding-left:1.1rem}.pay-l li::before{width:3px;height:1.1rem;top:.85rem;border-radius:2px;background:var(--o)}
+.cv{display:grid;gap:.9rem}.cv p{border-radius:16px;padding:1rem 1.2rem;box-shadow:inset 0 0 0 1px var(--ln);display:grid;gap:.2rem}.cv strong{font-weight:500;font-size:1.2rem}.cv span{font-size:.88rem;opacity:.7}
+.vl-h{font-size:1.15rem;max-width:none;margin:0 0 -.4rem}.vl-h::before{display:none}
+.specs.vl dd{color:var(--od);font-size:1.15rem}
+.thumbs .plan{background:#fff}.thumbs .plan img{aspect-ratio:auto;object-fit:contain;background:#fff}
+.pg .grid figure:nth-child(-n+2){grid-column:span 2}
+@media(max-width:860px){.pay{grid-template-columns:minmax(0,1fr)}.lead{margin-top:-1.2rem}.tbl-d{padding-inline:0}.pg .grid figure:nth-child(-n+2){grid-column:span 1}}
+@media(max-width:700px){.inc,.pay{text-align:left}.tbl table{font-size:.82rem}}
+
+/* Titular largo del catálogo ("Construcción modular, pensada como arquitectura.") */
+.hero.hz h1{font-size:clamp(2.3rem,4.3vw,3.9rem);line-height:1.04}
+.hero.hz h1 span{overflow:visible}
+@media(max-width:700px){.hero.hz h1{font-size:clamp(2rem,9.4vw,2.9rem)}}
+.lead,.mas,#lineas .note,#modelos .acts{margin-inline:auto;text-align:center;justify-content:center}
+.lead{margin-top:-1.6rem}.tbl-d summary{justify-content:space-between}
+@media(min-width:861px){#proyectos figcaption{padding-inline:.9rem}#proyectos figcaption h3{font-size:1rem}}
+.md .note{margin-bottom:1.4rem}
+
+/* Amby vs Amby House */
+.dos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem;max-width:860px;margin-inline:auto}
+.dos article{border-radius:var(--r);padding:clamp(1.4rem,3vw,2.2rem);display:grid;gap:.6rem;align-content:start;min-height:19rem}
+.dos h3{font-size:1.6rem;font-weight:500;letter-spacing:-.02em}.dos p{opacity:.85;margin:0}
+.dos-a{box-shadow:inset 0 0 0 1.5px var(--ink)}.dos-a .link{margin-top:auto;justify-self:start}
+.dos-b{background:var(--o);color:var(--ink)}.dos-b .tk li{border-color:rgba(20,20,20,.25)}.dos-b .tk li::before{background:var(--ink)}
+.dos .tk{margin-top:auto}.dos-a .tk{margin-bottom:1rem}
+#amby-house .note{margin-top:1.6rem;text-align:center;margin-inline:auto;font-size:1rem;opacity:.8}
+@media(max-width:700px){.dos{grid-template-columns:minmax(0,1fr)}.dos article{min-height:0}.dos .tk{margin-top:1rem}}

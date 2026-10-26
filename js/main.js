@@ -4,19 +4,27 @@
   const $ = s => document.querySelector(s), M = D.modelos;
   const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = n => 'USD ' + Math.round(n).toLocaleString('es-AR');
-  document.querySelectorAll('[data-precio]').forEach(e => { const m = M.find(x => x.id === e.dataset.precio); if (m) e.textContent = fmt(m.precio); });
+  document.querySelectorAll('[data-precio]').forEach(e => { const [id, ln] = e.dataset.precio.split(':'), m = M.find(x => x.id === id), l = D.lineas.find(x => x.id === ln); if (m) e.textContent = fmt(l ? m.m2 * l.usdM2 : m.precio); });
   const get = p => p.split('.').reduce((o, k) => o && o[k], D);
   document.querySelectorAll('[data-d]').forEach(e => { const v = get(e.dataset.d); if (v == null) return; Array.isArray(v) ? e.innerHTML = v.join(e.dataset.j === 'br' ? '<br>' : ', ') : e.textContent = v; });
   document.querySelectorAll('[data-wa]').forEach(a => { const t = D.msgs[a.dataset.wa]; a.href = `https://wa.me/${D.wa}` + (t ? `?text=${encodeURIComponent(t)}` : ''); });
   document.querySelectorAll('[data-map]').forEach(a => a.href = D.empresa.mapa);
+
+  /* Secciones nuevas: líneas, comparativa, qué incluye, formas de pago (todo desde data.js) */
+  const lc = $('#lineas-cards');
+  if (lc) lc.innerHTML = D.lineas.map((l, i) => `<article class="ln ln${i} rv"><h3>${l.nombre}</h3><p class="ln-p"><small>desde</small><strong>USD ${l.usdM2.toLocaleString('es-AR')}</strong><span>/m²</span></p><p class="ln-d">${l.desc}</p></article>`).join('');
+  const tb = $('#tabla-body');
+  if (tb) tb.innerHTML = D.tabla.map(r => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+  const li = (id, a) => { const e = $(id); if (e) e.innerHTML = a.map(t => `<li>${t}</li>`).join(''); };
+  li('#incluye', D.incluye); li('#noincluye', D.noIncluye); li('#pagos-lista', D.pagos);
   const cards = $('#cards');
-  if (cards) cards.innerHTML = M.map(m => `<a class="card rv" href="${m.url}"><div class="im"><img loading="lazy" src="${m.img}" alt="Casa modular ${m.nombre} de ${m.m2} m²" width="800" height="600"></div><div class="t"><h3>${m.nombre}</h3><span>${m.m2} m² · ${m.corto}</span><span class="from">Desde ${fmt(m.precio)}</span><em>Ver detalles y configurar</em></div></a>`).join('');
+  if (cards) cards.innerHTML = M.map(m => `<a class="card rv" href="${m.url}"><div class="im"><img loading="lazy" src="${m.img}" alt="Casa modular ${m.nombre} de ${m.m2} m²" width="900" height="1200"></div><div class="t"><h3>${m.nombre}</h3><span>${m.m2} m² · ${m.corto}</span><span class="from">Desde ${fmt(m.precio)}</span><em>Ver detalles y configurar</em></div></a>`).join('');
 
   const hz = $('#hz-svg'); if (!hz) return;
-  $('#hz-l2').innerHTML = `${D.hero.l2} <b>${D.empresa.entrega} días</b>.`;
+  $('#hz-l2').innerHTML = D.hero.l2;
   $('#hz-stats').innerHTML = D.hero.stats.map(s => `<li><strong>${s[0]}</strong><span>${s[1]}</span></li>`).join('');
   const stage = $('#hz-stage'), house = $('#hz-house'), dm = $('#hz-dm'), dt = $('#hz-dt'), num = $('#hz-m2');
-  const NS = 'http://www.w3.org/2000/svg', B = 15, W = 84, N = Math.max(...M.map(m => m.m2 / B));
+  const NS = 'http://www.w3.org/2000/svg', B = 19, W = 120, nb = m => Math.max(1, Math.round(m.m2 / B)), N = Math.max(...M.map(nb));
   const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
   const slots = Array.from({ length: N }, (_, i) => {
     const g = mk('g', { class: 'bk' }, house);
@@ -37,7 +45,7 @@
     rm ? num.textContent = to : requestAnimationFrame(f);
   };
   const go = i => {
-    k = (i + M.length) % M.length; const m = M[k], n = m.m2 / B, x0 = (600 - n * W) / 2;
+    k = (i + M.length) % M.length; const m = M[k], n = nb(m), x0 = (600 - n * W) / 2;
     slots.forEach((g, j) => { const on = j < n; g.style.transitionDelay = on ? `${j * 70}ms` : '0ms'; g.style.transform = `translate(${x0 + j * W}px,${on ? 142 : 40}px)`; g.style.opacity = on ? 1 : 0; });
     dm.style.transform = `translate(${x0}px,272px) scaleX(${n * W})`; dt.textContent = `${m.m2} m²`;
     pb.forEach((b, j) => b.setAttribute('aria-pressed', j === k));
@@ -53,7 +61,7 @@
     stage.addEventListener('pointermove', e => { const r = stage.getBoundingClientRect(); stage.style.setProperty('--ry', `${((e.clientX - r.left) / r.width - .5) * 8}deg`); stage.style.setProperty('--rx', `${-((e.clientY - r.top) / r.height - .5) * 5}deg`); });
     stage.addEventListener('pointerleave', () => { stage.style.setProperty('--rx', '0deg'); stage.style.setProperty('--ry', '0deg'); });
   }
-  fac(Math.max(0, D.fachadas.findIndex(f => f.id === 'madera'))); void hz.getBoundingClientRect(); go(0);
+  fac(Math.max(0, D.fachadas.findIndex(f => f.id === 'siding'))); void hz.getBoundingClientRect(); go(0);
 })();
 /* 2) Proceso: escena guiada por el scroll */
 (() => {
