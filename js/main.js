@@ -63,7 +63,7 @@
   }
   fac(Math.max(0, D.fachadas.findIndex(f => f.id === 'siding'))); void hz.getBoundingClientRect(); go(0);
 })();
-/* 2) Proceso: escena guiada por el scroll */
+/* 2) Proceso: escena guiada por el scroll (todo ocurre en la fábrica) */
 (() => {
   const D = window.AMBY, svg = document.querySelector('#pz-svg'), box = document.querySelector('#proceso'); if (!D || !svg) return;
   const list = document.querySelector('#pz-list');
@@ -71,17 +71,10 @@
   const li = [...list.children], NS = 'http://www.w3.org/2000/svg';
   const mk = (t, a, p) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); p.appendChild(e); return e; };
   const clamp = v => Math.min(Math.max(v, 0), 1), seg = (p, a, b) => clamp((p - a) / (b - a)), ez = t => 1 - Math.pow(1 - t, 3), lerp = (a, b, t) => a + (b - a) * t;
-  mk('path', { class: 'pz-shed', d: 'M10 250V140Q130 90 250 140V250Z' }, svg);
-  mk('rect', { class: 'pz-slab', x: 560, y: 244, width: 230, height: 6 }, svg);
+  mk('path', { class: 'pz-shed', d: 'M170 250V118Q400 58 630 118V250Z' }, svg);
   mk('line', { class: 'gr', x1: 0, x2: 800, y1: 250, y2: 250 }, svg);
-  const road = mk('line', { class: 'pz-road', x1: 0, x2: 800, y1: 270, y2: 270 }, svg);
-  [[130, 'Fábrica'], [675, 'Tu terreno']].forEach(([x, t]) => { mk('text', { class: 'dt', x, y: 294, 'text-anchor': 'middle' }, svg).textContent = t; });
-  const cr = mk('g', { class: 'pz-cr' }, svg); mk('line', { x1: 548, x2: 548, y1: 250, y2: 38 }, cr); mk('line', { x1: 520, x2: 790, y1: 38, y2: 38 }, cr);
-  const cable = mk('path', { class: 'pz-cb' }, svg);
-  const tk = mk('g', { class: 'pz-tk' }, svg);
-  mk('rect', { x: 0, y: 236, width: 234, height: 8 }, tk); mk('rect', { x: 238, y: 200, width: 46, height: 44, rx: 4 }, tk); mk('rect', { x: 262, y: 207, width: 16, height: 14, rx: 2, class: 'gl' }, tk);
-  [30, 60, 200, 262].forEach(x => mk('circle', { cx: x, cy: 241, r: 9 }, tk));
-  const mod = mk('g', {}, svg);
+  mk('text', { class: 'dt', x: 400, y: 294, 'text-anchor': 'middle' }, svg).textContent = 'Nuestra fábrica · Villa Parque Santa Ana';
+  const mod = mk('g', { transform: 'translate(295 160)' }, svg);
   const blocks = [0, 1, 2].map(i => {
     const g = mk('g', { transform: `translate(${i * 70} 0)` }, mod);
     mk('rect', { class: 'wl', width: 70, height: 90 }, g);
@@ -89,38 +82,40 @@
     i ? mk('rect', { class: 'gl', x: 12, y: 20, width: 46, height: 48 }, g) : mk('rect', { class: 'gl', x: 10, y: 14, width: 28, height: 76 }, g);
     mk('rect', { class: 'rf', x: -3, y: -8, width: 76, height: 8 }, g); return g;
   });
-  const tag = mk('g', { class: 'pz-tag' }, svg); mk('rect', { x: 598, y: 104, width: 164, height: 28, rx: 14 }, tag); mk('text', { x: 680, y: 123, 'text-anchor': 'middle' }, tag).textContent = 'Llave en mano ✓';
-  const S = [0, .15, .3, .5, 1];
+  const tag = mk('g', { class: 'pz-tag' }, svg); mk('rect', { x: 290, y: 12, width: 220, height: 28, rx: 14 }, tag); mk('text', { x: 400, y: 31, 'text-anchor': 'middle' }, tag).textContent = 'Terminado en fábrica ✓';
+  const S = [0, .25, .5, .75, 1];
   const draw = p => {
     blocks.forEach((g, i) => {
-      const fb = seg(p, .3 + i * .05, .4 + i * .05);
-      g.style.opacity = seg(p, i * .04, i * .04 + .1); g.style.setProperty('--fo', .35 * seg(p, .15, .3) + .65 * fb);
-      g.style.setProperty('--gl', fb > .99 ? .35 + .65 * seg(p, .94, 1) : 0); g.classList.toggle('sd', fb > .99);
+      const fb = seg(p, .5 + i * .06, .62 + i * .06);
+      g.style.opacity = seg(p, i * .05, i * .05 + .12); g.style.setProperty('--fo', .35 * seg(p, .25, .4) + .65 * fb);
+      g.style.setProperty('--gl', fb > .99 ? .35 + .65 * seg(p, .8, .92) : 0); g.classList.toggle('sd', fb > .99);
     });
-    const arr = ez(seg(p, .5, .56)), trav = ez(seg(p, .56, .76)), up = ez(seg(p, .76, .82)), out = seg(p, .8, .9), dn = ez(seg(p, .84, .94));
-    const mx = 30 + 545 * trav, my = 160 - 14 * arr - 70 * up + 78 * dn;
-    mod.style.transform = `translate(${mx}px,${my}px)`;
-    tk.style.transform = `translate(${lerp(-320, 18, arr) + 545 * trav + out * 300}px,0)`; tk.style.opacity = arr > 0 ? 1 - out : 0;
-    cr.style.opacity = seg(p, .7, .76);
-    cable.setAttribute('d', `M${mx + 105} 38L${mx + 30} ${my - 9}M${mx + 105} 38L${mx + 180} ${my - 9}`); cable.style.opacity = seg(p, .74, .78) * (1 - seg(p, .93, .96));
-    road.style.strokeDashoffset = -p * 1100; tag.style.opacity = seg(p, .96, 1);
-    const a = p < .15 ? 0 : p < .3 ? 1 : p < .5 ? 2 : 3;
+    tag.style.opacity = seg(p, .9, .97);
+    const a = p < .25 ? 0 : p < .5 ? 1 : p < .75 ? 2 : 3;
     li.forEach((e, i) => { e.classList.toggle('on', i === a); e.classList.toggle('done', i < a); e.style.setProperty('--sp', clamp((p - S[i]) / (S[i + 1] - S[i]))); i === a ? e.setAttribute('aria-current', 'step') : e.removeAttribute('aria-current'); });
   };
-  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches, DUR = 18000;
-  let p = 0, t0 = 0, hold = 0, tw = null, raf = 0, vis = false;
+  const rm = matchMedia('(prefers-reduced-motion: reduce)').matches, DUR = 28000, pp = document.querySelector('#pz-pp');
+  let p = 0, t0 = 0, hold = 0, tw = null, raf = 0, vis = false, manual = false, hov = false;
+  const label = () => { if (pp) { pp.textContent = manual ? 'Reanudar' : 'Pausar'; pp.setAttribute('aria-pressed', manual); } };
   const frame = t => {
     const dt = Math.min(t - (t0 || t), 64); t0 = t;
     if (tw) { const k = clamp((t - tw.s) / tw.d); p = lerp(tw.a, tw.b, ez(k)); if (k >= 1) tw = null; }
+    else if (manual || hov) { /* el visitante está leyendo */ }
     else if (hold > 0) { hold -= dt; if (hold <= 0) p = 0; }
-    else { p += dt / DUR; if (p >= 1) { p = 1; hold = 2800; } }
+    else { p += dt / DUR; if (p >= 1) { p = 1; hold = 4000; } }
     draw(p);
   };
   const loop = t => { frame(t); raf = requestAnimationFrame(loop); };
   const start = () => { if (!raf && !rm) { t0 = 0; raf = requestAnimationFrame(loop); } };
   const stop = () => { cancelAnimationFrame(raf); raf = 0; };
-  const jump = i => { const b = S[i] + .001; hold = 0; if (rm) { p = b; draw(p); return; } tw = { a: p, b, s: performance.now(), d: 700 }; start(); };
+  const jump = i => { const b = S[i] + .001; hold = 0; manual = true; label(); if (rm) { p = b; draw(p); return; } tw = { a: p, b, s: performance.now(), d: 700 }; start(); };
   li.forEach((e, i) => { e.tabIndex = 0; e.setAttribute('role', 'button'); e.onclick = () => jump(i); e.onkeydown = ev => (ev.key === 'Enter' || ev.key === ' ') && (ev.preventDefault(), jump(i)); });
+  if (pp) {
+    pp.parentElement.hidden = rm;
+    pp.onclick = () => { manual = !manual; label(); if (!manual) { hold = 0; if (p >= 1) p = 0; start(); } };
+  }
+  if (matchMedia('(hover:hover)').matches) [list, svg].forEach(el => { el.addEventListener('pointerenter', () => hov = true); el.addEventListener('pointerleave', () => hov = false); });
+  list.addEventListener('focusin', () => hov = true); list.addEventListener('focusout', () => hov = false);
   new IntersectionObserver(es => es.forEach(e => { vis = e.isIntersecting; vis && !document.hidden ? start() : stop(); }), { threshold: .25 }).observe(box);
   document.addEventListener('visibilitychange', () => document.hidden ? stop() : vis && start());
   p = rm ? .97 : 0; draw(p);
@@ -179,13 +174,10 @@
   menu.onclick = e => e.target.closest('a') && setMenu(false);
   addEventListener('keydown', e => e.key === 'Escape' && setMenu(false));
 
-  const hi = $('.hero-img img')[0], st = $('.steps')[0];
   const onScroll = () => {
     const y = scrollY, h = document.documentElement.scrollHeight - innerHeight;
     top.classList.toggle('sc', y > 10);
-    if (st) { const r = st.getBoundingClientRect(); st.style.setProperty('--sp', Math.min(Math.max((innerHeight * .85 - r.top) / (innerHeight * .5), 0), 1)); }
     const pv = h > 0 ? y / h : 0; bar.style.setProperty('--p', pv); if (upb) upb.style.setProperty('--p', pv);
-    if (hi && !rm && y < innerHeight) hi.style.setProperty('--py', `${-y * .06}px`);
   };
   addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
@@ -196,7 +188,6 @@
     if (c) count(c);
   }), { threshold: .15 });
   $('.rv').forEach((el, i) => { el.style.setProperty('--d', `${(i % 4) * .08}s`); io.observe(el); });
-  $('.steps li').forEach((el, i) => { el.style.transitionDelay = `${i * .15}s`; io.observe(el); });
 
   function count(el) {
     const to = +el.dataset.count, t0 = performance.now();
@@ -215,18 +206,6 @@
     });
   }
   const y = $('#y')[0]; if (y) y.textContent = new Date().getFullYear();
-})();
-(() => {
-  const chips = [...document.querySelectorAll('.chip')], g = document.querySelector('.grid');
-  chips.forEach(c => c.addEventListener('click', () => {
-    chips.forEach(x => x.setAttribute('aria-pressed', x === c));
-    const f = c.dataset.f; g.classList.add('flt');
-    g.querySelectorAll('figure').forEach(fg => {
-      const show = f === 'todos' || fg.dataset.c === f;
-      fg.classList.toggle('out', !show);
-      if (show) { fg.classList.remove('pop'); void fg.offsetWidth; fg.classList.add('pop'); }
-    });
-  }));
 })();
 (() => {
   const bad = i => { i.style.opacity = 0; i.parentElement.classList.add('ph'); };
@@ -252,6 +231,8 @@
     root.classList.remove('intro-on'); intro.remove();
   };
   intro.addEventListener('animationend', e => { if (e.target === intro && e.animationName === 'inout') done(); });
-  intro.addEventListener('click', () => intro.classList.add('skip'));
+  const skip = () => intro.classList.add('skipping');
+  intro.addEventListener('click', skip);
+  addEventListener('keydown', e => { if (['Escape', 'Enter', ' '].includes(e.key)) skip(); });
   setTimeout(done, 5500);
 })();

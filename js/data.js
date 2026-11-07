@@ -6,7 +6,7 @@ window.AMBY = {
   iva: 10.5,
   empresa: {
     entrega: '60–90',
-    tel: '+54 9 3512 05-8609',
+    tel: '+54 9 351 205-8609',
     horario: 'Lunes a viernes, de 9:30 a 18:00 hs',
     direccion: ['Colectora RP N° 5, Km 18', 'Villa Parque Santa Ana', 'Complejo PRETOR'],
     mapa: 'https://www.google.com/maps/search/?api=1&query=Complejo+PRETOR+Villa+Parque+Santa+Ana+Cordoba+Argentina'
@@ -20,12 +20,12 @@ window.AMBY = {
     l1: 'Construcción modular,',
     l2: 'pensada como <b>arquitectura</b>.',
     sub: 'Casas y espacios modulares con diseño de autor y terminaciones premium. Se fabrican en planta y se montan en tu terreno.',
-    stats: [['Steel frame', 'Acero galvanizado + panel SIP'], ['Fábrica propia', 'Villa Parque Santa Ana, Córdoba'], ['Todo el país', 'Traslado y montaje con equipo propio'], ['Llave en mano', '60 a 90 días de entrega']]
+    stats: [['Steel frame', 'Acero galvanizado + panel SIP'], ['Fábrica propia', 'Villa Parque Santa Ana, Córdoba'], ['Terminado en fábrica', 'Módulos listos para trasladar y montar'], ['Plazo estimado', '60 a 90 días de fabricación']]
   },
   lineas: [
-    { id: 'premium', nombre: 'Línea Premium', usdM2: 1100, desc: 'Aberturas de aluminio, piso vinílico SPC y terminaciones de primera calidad.' },
-    { id: 'plus', nombre: 'Línea Premium Plus', usdM2: 1250, desc: 'Doble vidrio hermético, porcelanato 60x60 y cocina con alacena y purificador.' },
-    { id: 'deluxe', nombre: 'Línea Deluxe', usdM2: 1400, desc: 'Revestimiento interior de machimbre, porcelanato 80x60, anafe de 4 hornallas y horno de embutir.' }
+    { id: 'premium', nombre: 'Línea Premium', usdM2: 1100, desc: 'Aberturas de aluminio con vidrio simple, cocina con bajo mesada y terminaciones de primera calidad.' },
+    { id: 'plus', nombre: 'Línea Premium Plus', usdM2: 1250, desc: 'Doble vidrio hermético, porcelanato 60x60 en baño y cocina con alacena y purificador.' },
+    { id: 'deluxe', nombre: 'Línea Deluxe', usdM2: 1400, desc: 'Revestimiento interior de machimbre, porcelanato 80x60 en baño, anafe de 4 hornallas y horno de embutir.' }
   ],
   /* Modelos reales del catálogo. precio = "desde" (Línea Premium), se calcula abajo. */
   modelos: [
@@ -44,7 +44,7 @@ window.AMBY = {
     ['Idea', 'Nos contás qué querés: uso, terreno y estilo. Definimos el alcance y armamos la propuesta con plazos y presupuesto.'],
     ['Diseño', 'Proyecto a tu medida, pensado como arquitectura. Planos y materiales definidos con vos, con ajustes y aprobación antes de fabricar.'],
     ['Fabricación', 'En nuestra fábrica, con estructura en steel frame. Cada módulo se termina en planta, con control de calidad y sin demoras de obra tradicional.'],
-    ['Montaje', 'Trasladamos a todo el país hasta tu terreno y montamos con equipo propio, de forma rápida y prolija. Llave en mano, listo para usar.']
+    ['Entrega', 'El módulo sale terminado de fábrica. El traslado y el montaje en tu terreno se coordinan aparte, con el equipo que elijas.']
   ],
   fachadas: [
     { id: 'chapa', nombre: 'Chapa', color: '#2a2a2a', usdM2: 0 },
@@ -57,22 +57,22 @@ window.AMBY = {
     { id: 'pilotes', nombre: 'Sistema de pilotes', desc: 'Para anclaje' }
   ],
   incluye: [
-    'Estructura de steel frame y aislación de 100 mm',
-    'Aberturas DVH, instalaciones sanitaria, eléctrica y cloacal',
+    'Estructura de steel frame y aislación de EPS de 80 a 100 mm',
+    'Aberturas de aluminio (vidrio simple o DVH según la línea), instalaciones sanitaria, eléctrica y cloacal',
     'Baño completo y terminaciones interiores',
-    'Cocina equipada y placares en dormitorios'
+    'Cocina equipada y equipamiento según la línea (placares en dormitorios en Línea Deluxe)'
   ],
   noIncluye: [
     'Trabajos preliminares en terreno y bases de apoyo',
     'Acometidas de agua, electricidad y cloacas',
-    'Traslado y montaje final',
+    'Traslado y montaje en destino (los coordina el cliente)',
     'Grúa para la descarga en destino'
   ],
   pagos: [
-    '60% al firmar el contrato, 20% a los 30 días y 20% al momento de la entrega, previo envío.',
+    '60% al firmar el contrato, 20% a los 30 días y 20% al finalizar la fabricación, antes del retiro del módulo.',
     'Pago contado: 5% de descuento.',
     '60% al firmar y saldo hasta en 6 cuotas mensuales consecutivas en pesos, con interés mensual del 5%.',
-    'Financiación exclusiva mediante convenio con Banco Hipotecario.',
+    'Financiación mediante convenio con Banco Hipotecario.',
     'Tomamos cheques a 30/60/90 días.'
   ],
   /* Comparativa por línea (orden: Premium, Premium Plus, Deluxe) */
@@ -87,7 +87,7 @@ window.AMBY = {
     ['Piso interior', 'Piso vinílico SPC 6 mm con manto, sistema click de alto tránsito, impermeable', 'Piso vinílico SPC 6 mm con manto, sistema click de alto tránsito, impermeable', 'Piso vinílico SPC 6 mm con manto, sistema click de alto tránsito, impermeable'],
     ['Instalación eléctrica', 'Plafones 24 W', 'Plafones 24 W + spot + apliques exteriores. Tablero eléctrico', 'Apliques led (spot) + AR111 + tira led en zócalo a cielorraso'],
     ['Sanitarios y grifería', 'Sanitarios Ferrum línea Andina. Receptáculo de ducha 70x70 + mampara. Grifería FV Arizona', 'Sanitarios Ferrum línea Andina. Receptáculo de ducha 70x70 + mampara. Grifería FV Arizona', 'Sanitarios Ferrum línea Bari. Receptáculo de ducha 70x120 + mampara. Grifería FV Pueblo'],
-    ['Revestimiento interior y aislación', 'Placa de yeso + EPS de 80 y 100 mm', 'Placa de yeso + EPS de 80 y 100 mm', 'Machimbre de eucalipto de primera + EPS de 80 y 100 mm'],
+    ['Revestimiento interior y aislación', 'Placa de yeso + EPS de 80 a 100 mm', 'Placa de yeso + EPS de 80 a 100 mm', 'Machimbre de eucalipto de primera + EPS de 80 a 100 mm'],
     ['Estructura', 'Acero + panel SIP', 'Acero + panel SIP', 'Acero + panel SIP'],
     ['Techo', 'A un agua', 'A un agua', 'A una o dos aguas']
   ]
