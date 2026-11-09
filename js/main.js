@@ -170,6 +170,8 @@
   const top = $('.top')[0], bar = $('.bar')[0], upb = $('.up')[0], burger = $('.burger')[0], menu = $('#menu')[0];
   const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const setMenu = o => { menu.classList.toggle('open', o); burger.setAttribute('aria-expanded', o); burger.setAttribute('aria-label', o ? 'Cerrar menú' : 'Abrir menú'); };
+  matchMedia('(min-width:1024px)').addEventListener('change', e => e.matches && setMenu(false));
+  addEventListener('click', e => menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target) && setMenu(false));
   burger.onclick = () => setMenu(!menu.classList.contains('open'));
   menu.onclick = e => e.target.closest('a') && setMenu(false);
   addEventListener('keydown', e => e.key === 'Escape' && setMenu(false));
