@@ -238,3 +238,14 @@
   addEventListener('keydown', e => { if (['Escape', 'Enter', ' '].includes(e.key)) skip(); });
   setTimeout(done, 5500);
 })();
+
+/* Formulario de contacto (inicio) y comparador de modelos. Usa window.AMBY (js/data.js). */
+(function(){var D=window.AMBY,$=function(s){return document.querySelector(s)},wa=function(t){return'https://wa.me/'+D.wa+'?text='+encodeURIComponent(t)},usd=function(n){return'USD '+Math.round(n).toLocaleString('es-AR')};
+var cf=$('#cf');if(cf){$('#cm').innerHTML='<option value="">Todavía no lo sé</option>'+D.modelos.map(function(m){return'<option>'+m.nombre+' · '+m.m2+' m²</option>'}).join('');
+cf.onsubmit=function(e){e.preventDefault();var n=cf.nombre.value.trim(),w=cf.wa.value.replace(/\D/g,'');if(!n||w.length<8){$('#ce').textContent='Completá tu nombre y un WhatsApp válido.';return}$('#ce').textContent='';window.open(wa('Hola Amby, soy '+n+' ('+cf.wa.value+').'+(cf.modelo.value?' Me interesa el '+cf.modelo.value+'.':'')+(cf.msg.value.trim()?' '+cf.msg.value.trim():' Quiero recibir una cotización.')),'_blank','noopener')}}
+var ct=$('#ct');if(ct){var sel=D.modelos.slice(),q=(new URLSearchParams(location.search).get('m')||'').toLowerCase();if(q){var f=D.modelos.filter(function(m){return m.id.toLowerCase()===q});if(f.length)sel=D.modelos.filter(function(m){return m===f[0]||m.m2!==f[0].m2}).slice(0,3)}
+var rows=[['Superficie',function(m){return m.m2+' m²'}],['Dormitorios',function(m){return m.hab?m.hab:'Monoambiente'}],['Baños',function(m){return m.banos}],['Ambientes',function(m){return m.desc}]].concat(D.lineas.map(function(l){return['Desde · '+l.nombre.replace('Línea ',''),function(m){return usd(m.m2*l.usdM2)},1]})).concat([['Plazo de fabricación',function(){return D.empresa.entrega+' días'}]]);
+var draw=function(){$('#cc').innerHTML=D.modelos.map(function(m){return'<button type="button" class="cmp-chip" data-i="'+m.id+'" aria-pressed="'+(sel.indexOf(m)>-1)+'">'+m.id+'</button>'}).join('');
+ct.innerHTML='<table class="cmp-t"><thead><tr><th scope="col"></th>'+sel.map(function(m){return'<th scope="col"><img src="'+m.img+'" alt="'+m.nombre+'" width="300" height="400"><strong>'+m.nombre+'</strong><small>'+m.corto+'</small></th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return'<tr><th scope="row">'+r[0]+'</th>'+sel.map(function(m){return'<td'+(r[2]?' class="hi"':'')+'>'+r[1](m)+'</td>'}).join('')+'</tr>'}).join('')+'<tr><th scope="row"></th>'+sel.map(function(m){return'<td><a class="btn" href="'+m.url+'">Ver detalles</a><a class="btn ghost" href="configurador.html?modelo='+m.id.toLowerCase()+'">Configurar</a></td>'}).join('')+'</tr></tbody></table>'};
+$('#cc').onclick=function(e){var b=e.target.closest('.cmp-chip');if(!b)return;var m=D.modelos.filter(function(x){return x.id===b.dataset.i})[0],i=sel.indexOf(m);if(i>-1){if(sel.length>1)sel.splice(i,1)}else{sel.push(m);sel.sort(function(a,b){return a.m2-b.m2})}draw()};draw()}
+})();
